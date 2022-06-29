@@ -47,12 +47,36 @@ body {
 }
 
 .characters {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+
+  .character {
+    margin-bottom: 1rem;
+
+    .character-img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+  }
 }
 
 @keyframes rot1 {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen  and (max-width: 762px){
+  .characters{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen  and (max-width: 576px){
+  .characters{
+    grid-template-columns: 1fr;
   }
 }

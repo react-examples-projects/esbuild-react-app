@@ -16,7 +16,7 @@ start(
     bundle: true,
     sourcemap: false,
     incremental: true,
-    plugins: [
+    plugins: [ 
       sassPlugin({
         async transform(source) {
           const { css } = await postcss([
@@ -50,5 +50,6 @@ start(
     onAfterRebuild() {
       sendReload();
     },
+    
   }
 );

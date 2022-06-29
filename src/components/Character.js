@@ -11,9 +11,9 @@ export default function Character({ name, species, gender, image }) {
         className="character-img"
       />
       <div className="character-info">
-        <h2 className="character-name">{name}</h2>
-        <p>{species}</p>
-        <p>{gender}</p>
+        <h3 className="character-name mb-1">{name}</h3>
+        <p className="m-0">{species}</p>
+        <p className="m-0">{gender}</p>
       </div>
     </div>
   );
