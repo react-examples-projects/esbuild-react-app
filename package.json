@@ -1,0 +1,29 @@
+{
+  "name": "esbuild",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "server": "node build.js",
+    "build": "esbuild --loader:.js=jsx --bundle --minify src/index.js --outfile=./public/bundle.js",
+    "start": "esbuild --loader:.js=jsx --bundle --minify src/index.js --outfile=./public/bundle.js --serve=5000 --servedir=./public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "esbuild": "^0.14.47",
+    "esbuild-sass-plugin": "^2.2.6",
+    "inter-ui": "^3.19.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "esbuild-dev-server": "^0.3.0",
+    "postcss": "^8.4.14",
+    "postcss-preset-env": "^7.7.2"
+  },
+  "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead"
+}
