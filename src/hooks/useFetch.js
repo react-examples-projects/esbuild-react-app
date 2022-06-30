@@ -1,7 +1,13 @@
 import axios from "axios";
 import { useRef, useEffect, useState, useCallback } from "react";
 
-export default function useFetch({ url, method = "GET", payload = null, fn }) {
+export default function useFetch({
+  url,
+  method = "GET",
+  payload = null,
+  fn,
+  keys = [],
+}) {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -10,13 +16,14 @@ export default function useFetch({ url, method = "GET", payload = null, fn }) {
     controllerRef.current.abort();
   };
 
+
   const fetchData = useCallback(async () => {
     try {
       setError(null);
       setLoading(true);
       const response =
         typeof fn === "function"
-          ? await fn()
+          ? await fn(keys)
           : await axios.request({
               data: payload,
               signal: controllerRef.current.signal,
@@ -29,7 +36,7 @@ export default function useFetch({ url, method = "GET", payload = null, fn }) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [...keys]);
 
   const refetch = () => {
     fetchData();
@@ -38,7 +45,7 @@ export default function useFetch({ url, method = "GET", payload = null, fn }) {
   useEffect(() => {
     fetchData();
     return () => cancel();
-  }, [fetchData]);
+  }, [fetchData, ...keys]);
 
   return {
     refetch,

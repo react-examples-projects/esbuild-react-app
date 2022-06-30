@@ -11,6 +11,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.text-gradient {
+  background: linear-gradient(to right, #2193b0, #6dd5ed);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .btn {
   background-color: var(--btn-color);
   border: 1px solid var(--btn-color);
@@ -49,10 +55,11 @@ body {
 .characters {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 10px;
 
   .character {
+    border-radius: 4px;
     margin-bottom: 1rem;
+    padding: 0.5rem;
 
     .character-img {
       width: 100%;
@@ -60,6 +67,13 @@ body {
       height: auto;
       object-fit: cover;
       border-radius: 4px;
+    }
+
+
+
+    &:hover{
+      background-color: #eee;
+      cursor: pointer;
     }
   }
 }
@@ -70,13 +84,14 @@ body {
   }
 }
 
-@media screen  and (max-width: 762px){
-  .characters{
+@media screen and (max-width: 762px) {
+  .characters {
     grid-template-columns: 1fr 1fr;
   }
 }
-@media screen  and (max-width: 576px){
-  .characters{
+
+@media screen and (max-width: 576px) {
+  .characters {
     grid-template-columns: 1fr;
   }
 }

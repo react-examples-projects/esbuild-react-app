@@ -1,7 +1,8 @@
+const path = require("path");
 const postcss = require("postcss");
 const autoprefixer = require("autoprefixer");
 const postcssPresetEnv = require("postcss-preset-env");
-const path = require("path");
+const eslint = require('esbuild-plugin-eslint');
 const { start, sendReload } = require("esbuild-dev-server");
 const { build } = require("esbuild");
 const { sassPlugin } = require("esbuild-sass-plugin");
@@ -14,9 +15,11 @@ start(
     minify: true,
     outfile: path.resolve(BUILD_PATH, "bundle.min.js"),
     bundle: true,
+    // target: ["chrome58", "firefox57", "safari11", "edge16"],
     sourcemap: false,
     incremental: true,
-    plugins: [ 
+    plugins: [
+      eslint(),
       sassPlugin({
         async transform(source) {
           const { css } = await postcss([
@@ -50,6 +53,5 @@ start(
     onAfterRebuild() {
       sendReload();
     },
-    
   }
 );
