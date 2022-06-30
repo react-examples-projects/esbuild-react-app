@@ -1,5 +1,4 @@
 export const makeCancelable = (promise) => {
-  console.log(promise)
   let hasCanceled_ = false;
 
   const wrappedPromise = new Promise((resolve, reject) => {

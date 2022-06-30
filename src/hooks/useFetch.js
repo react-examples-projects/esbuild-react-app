@@ -30,7 +30,7 @@ export default function useFetch(key, fn) {
 
   return {
     refetch,
-    data,
+    data,   
     error,
     isLoading,
   };

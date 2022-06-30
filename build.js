@@ -8,11 +8,24 @@ const { sassPlugin } = require("esbuild-sass-plugin");
 const { ESLint } = require("eslint");
 
 const BUILD_PATH = path.resolve(__dirname, "./public/static");
-const eslintt = () => ({
+
+const eslint = () => ({
   name: "eslint",
   setup(build) {
+    let codeResult = "";
     const eslint = new ESLint({
       cwd: path.resolve(__dirname, "./src"),
+    });
+
+    build.onStart(() => {
+      codeResult = "";
+      console.clear();
+      console.log("Checking your code...");
+    });
+
+    build.onEnd(() => {
+      console.clear();
+      console.log(codeResult);
     });
 
     build.onLoad({ filter: /\.(jsx?|js?)$/ }, async ({ path }) => {
@@ -22,7 +35,7 @@ const eslintt = () => ({
         const formatter = await eslint.loadFormatter("stylish");
         const output = formatter.format(result);
         if (output.length > 0) {
-          console.log(output);
+          codeResult += output + "\n";
         }
       } catch (err) {
         console.log(err);
@@ -41,7 +54,7 @@ start(
     incremental: true,
     inject: [path.resolve(__dirname, "./react-shim.js")], // auto import react per file
     plugins: [
-      eslintt(),
+      eslint(),
       sassPlugin({
         async transform(source) {
           const { css } = await postcss([

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Character from "../components/Character";
 import Loader from "../components/Loader";
-import CharactersLoader from "../components/loaders/CharactersLoader";
+// import CharactersLoader from "../components/loaders/CharactersLoader";
 import useCharacters from "../hooks/useCharacters";
 import usePagination from "../hooks/usePagination";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div className="container">
       {/* <CharactersLoader /> */}
-      <h1 className="text-center mb-2 text-gradient">Ricky and Morty</h1>
+      <h1 className="text-center mb-2 text-gradient">Ricky and dMorty</h1>
       <div className="d-flex">
         <button onClick={refetch} className="d-block btn mb-4 me-2">
           Actualizar
