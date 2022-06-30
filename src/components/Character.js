@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Character({ name, species, gender, image }) {
   return (
     <div className="character">

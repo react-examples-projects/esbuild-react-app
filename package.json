@@ -14,7 +14,6 @@
   "dependencies": {
     "axios": "^0.27.2",
     "babel-plugin-styled-components": "^2.0.7",
-    "esbuild-plugin-eslint": "^0.0.1",
     "esbuild-sass-plugin": "^2.2.6",
     "eslint": "^8.18.0",
     "inter-ui": "^3.19.3",

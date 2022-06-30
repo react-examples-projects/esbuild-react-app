@@ -2,12 +2,34 @@ const path = require("path");
 const postcss = require("postcss");
 const autoprefixer = require("autoprefixer");
 const postcssPresetEnv = require("postcss-preset-env");
-const eslint = require('esbuild-plugin-eslint');
 const { start, sendReload } = require("esbuild-dev-server");
 const { build } = require("esbuild");
 const { sassPlugin } = require("esbuild-sass-plugin");
+const { ESLint } = require("eslint");
 
 const BUILD_PATH = path.resolve(__dirname, "./public/static");
+const eslintt = () => ({
+  name: "eslint",
+  setup(build) {
+    const eslint = new ESLint({
+      cwd: path.resolve(__dirname, "./src"),
+    });
+
+    build.onLoad({ filter: /\.(jsx?|js?)$/ }, async ({ path }) => {
+      if (path.match(/node_modules/)) return;
+      try {
+        const result = await eslint.lintFiles(path);
+        const formatter = await eslint.loadFormatter("stylish");
+        const output = formatter.format(result);
+        if (output.length > 0) {
+          console.log(output);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  },
+});
 
 start(
   build({
@@ -15,11 +37,11 @@ start(
     minify: true,
     outfile: path.resolve(BUILD_PATH, "bundle.min.js"),
     bundle: true,
-    // target: ["chrome58", "firefox57", "safari11", "edge16"],
     sourcemap: false,
     incremental: true,
+    inject: [path.resolve(__dirname, "./react-shim.js")], // auto import react per file
     plugins: [
-      eslint(),
+      eslintt(),
       sassPlugin({
         async transform(source) {
           const { css } = await postcss([

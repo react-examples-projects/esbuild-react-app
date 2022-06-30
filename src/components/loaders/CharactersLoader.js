@@ -1,4 +1,3 @@
-import React from "react";
 import Skeleton from "react-loading-skeleton";
 import styles from "./styles.module.scss"
 
@@ -19,7 +18,7 @@ export default function CharactersLoader() {
       {Array(10)
         .fill(null)
         .map((_, key) => (
-          <SkeletonCharacter />
+          <SkeletonCharacter key={key}/>
         ))}
     </div>
   );

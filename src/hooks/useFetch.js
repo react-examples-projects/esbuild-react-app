@@ -1,55 +1,35 @@
-import axios from "axios";
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { makeCancelable } from "../helpers/utils";
 
-export default function useFetch({
-  url,
-  method = "GET",
-  payload = null,
-  fn,
-  keys = [],
-}) {
+export default function useFetch(key, fn) {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const controllerRef = useRef(new AbortController());
-  const cancel = () => {
-    controllerRef.current.abort();
-  };
-
 
   const fetchData = useCallback(async () => {
     try {
       setError(null);
       setLoading(true);
-      const response =
-        typeof fn === "function"
-          ? await fn(keys)
-          : await axios.request({
-              data: payload,
-              signal: controllerRef.current.signal,
-              method,
-              url,
-            });
-      setData(response?.data || response);
+      const result = await fn(key);
+      setData(result);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, [...keys]);
+  }, [key, fn]);
 
   const refetch = () => {
     fetchData();
   };
 
   useEffect(() => {
-    fetchData();
-    return () => cancel();
-  }, [fetchData, ...keys]);
+    const cancelablePromise = makeCancelable(fetchData());
+    return () => cancelablePromise.cancel();
+  }, [fetchData]);
 
   return {
     refetch,
-    cancel,
     data,
     error,
     isLoading,
