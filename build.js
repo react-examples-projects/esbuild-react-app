@@ -2,6 +2,7 @@ const path = require("path");
 const postcss = require("postcss");
 const autoprefixer = require("autoprefixer");
 const postcssPresetEnv = require("postcss-preset-env");
+const cssModulesPlugin = require("esbuild-css-modules-plugin");
 const { start, sendReload } = require("esbuild-dev-server");
 const { build } = require("esbuild");
 const { sassPlugin } = require("esbuild-sass-plugin");
@@ -19,12 +20,12 @@ const eslint = () => ({
 
     build.onStart(() => {
       codeResult = "";
-      console.clear();
+     // console.clear();
       console.log("Checking your code...");
     });
 
     build.onEnd(() => {
-      console.clear();
+     // console.clear();
       console.log(codeResult);
     });
 
@@ -55,6 +56,9 @@ start(
     inject: [path.resolve(__dirname, "./react-shim.js")], // auto import react per file
     plugins: [
       eslint(),
+      cssModulesPlugin({
+        localsConvention: "camelCaseOnly",
+      }),
       sassPlugin({
         async transform(source) {
           const { css } = await postcss([
@@ -66,6 +70,7 @@ start(
       }),
     ],
     loader: {
+      ".gif": "dataurl",
       ".svg": "dataurl",
       ".png": "dataurl",
       ".jpg": "dataurl",

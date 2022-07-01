@@ -1,13 +1,16 @@
 {
   "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": "latest",
     "ecmaFeatures": {
       "jsx": true
     },
     "sourceType": "module"
   },
-  "ignorePatterns": ["**/node_modules/**", "**/public/**"],
+  "env": {
+    "es6": true
+  },
+  "ignorePatterns": ["node_modules/", "public/"],
   "plugins": ["react", "import", "react-hooks", "jsx-a11y"],
   "extends": [
     "plugin:import/typescript",

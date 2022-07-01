@@ -1,8 +1,12 @@
+import useLazyloadImage from "../hooks/useLazyLoadImage";
+import SkeletonLoader from "../assets/skeleton.gif";
+
 export default function Character({ name, species, gender, image }) {
+  const isLoaded = useLazyloadImage({ src: image });
   return (
     <div className="character">
       <img
-        src={image}
+        src={isLoaded ? image : SkeletonLoader}
         loading="lazy "
         alt={name}
         title={name}
