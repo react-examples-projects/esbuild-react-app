@@ -15,3 +15,17 @@ export const makeCancelable = (promise) => {
     },
   };
 };
+
+export const scrollTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+/**
+ * Remove accents per each letter
+ * @param {FileList} files The images
+ * @returns A promise if the files are valids
+ */
+export function normalizeText(text) {
+  const result = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  return result;
+}

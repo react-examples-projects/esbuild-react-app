@@ -8,4 +8,12 @@
     margin-bottom: 1rem;
     padding: 0.5rem;
   }
+
+  @media screen and (max-width: 762px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
 }

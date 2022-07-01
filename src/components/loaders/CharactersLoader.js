@@ -14,12 +14,15 @@ function SkeletonCharacter() {
 
 export default function CharactersLoader() {
   return (
-    <div className={styles.charactersLoader}>
-      {Array(10)
-        .fill(null)
-        .map((_, key) => (
-          <SkeletonCharacter key={key} className={styles.characterLoader} />
-        ))}
-    </div>
+    <>
+      <Skeleton containerClassName="w-100" className="mb-2" width={120} />
+      <div className={styles.charactersLoader}>
+        {Array(10)
+          .fill(null)
+          .map((_, key) => (
+            <SkeletonCharacter key={key} className={styles.characterLoader} />
+          ))}
+      </div>
+    </>
   );
 }

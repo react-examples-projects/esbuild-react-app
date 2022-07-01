@@ -1,59 +1,11 @@
-import { useState } from "react";
-import Character from "../components/Character";
-import Loader from "../components/Loader";
-import CharactersLoader from "../components/loaders/CharactersLoader";
-import useCharacters from "../hooks/useCharacters";
-import usePagination from "../hooks/usePagination";
-import { Link } from "react-router-dom";
+import CharacterList from "../components/CharacterList";
 
 const Home = () => {
-  const [totalPages, setTotalPages] = useState(30);
-  const { currentPage, nextPage, previusPage } = usePagination({
-    totalPages,
-    initPage: 1,
-  });
-  const { isLoading, refetch, data } = useCharacters({ page: currentPage });
-
   return (
-    <>
-      {isLoading && data && (
-        <Loader
-          style={{ position: "absolute", top: "1.2rem", right: "1.2rem" }}
-        />
-      )}
-      <div className="container">
-        <h1 className="text-center mb-2 text-gradient">Ricky and dMorty</h1>
-        <div className="d-flex">
-          <button onClick={refetch} className="d-block btn mb-4 me-2">
-            Actualizar
-          </button>
-          <button onClick={nextPage} className="d-block btn mb-4 me-2">
-            Siguiente
-          </button>
-          <button onClick={previusPage} className="d-block btn mb-4 me-2">
-            Anteriorv
-          </button>
-        </div>
-
-        {isLoading && !data ? (
-          <CharactersLoader />
-        ) : data?.length ? (
-          <div className="characters">
-            {data.map((character) => (
-              <Link
-                to={`/${character.id}`}
-                key={character.id}
-                className="text-reset text-decoration-none"
-              >
-                <Character {...character} />
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <p>No hay personajes para mostrar</p>
-        )}
-      </div>
-    </>
+    <div className="container">
+      <h1 className="text-center my-5 text-gradient">Ricky and Morty</h1>
+      <CharacterList />
+    </div>
   );
 };
 

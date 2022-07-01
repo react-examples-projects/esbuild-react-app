@@ -25,16 +25,70 @@ body {
   transition: all 0.2s ease;
   color: #fff;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    box-shadow: 0 0 1px 3px rgb(66 153 225 / 50%);
+  }
+
+  &:not(:disabled):hover {
+    border: 1px solid var(--btn-color);
+    background-color: transparent;
+    color: var(--btn-color);
+  }
 }
 
-.btn:focus {
-  box-shadow: 0 0 1px 3px rgb(66 153 225 / 50%);
-}
+.group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: 28px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
 
-.btn:hover {
-  border: 1px solid var(--btn-color);
-  background-color: transparent;
-  color: var(--btn-color);
+  .input {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    -webkit-transition: .3s ease;
+    transition: .3s ease;
+
+    &::placeholder,
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder {
+      color: #9e9ea7;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #54bab883;
+      background-color: #fff;
+      -webkit-box-shadow: 0 0 0 4px #54bab823;
+      box-shadow: 0 0 0 4px #54bab823;
+    }
+  }
+
+  .icon {
+    position: absolute;
+    left: 1rem;
+    color: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+  }
+
 }
 
 .loader {
@@ -71,10 +125,23 @@ body {
 
 
 
-    &:hover{
+    &:hover {
       background-color: #eee;
       cursor: pointer;
     }
+  }
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+
+  >.group {
+    flex: 1 1 auto;
+  }
+
+  >.search-bar {
+    width: 60%;
   }
 }
 
@@ -87,6 +154,19 @@ body {
 @media screen and (max-width: 762px) {
   .characters {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .filter-bar {
+    flex-wrap: wrap;
+    gap: 10px;
+
+    >.group {
+      margin: 0 !important;
+    }
+
+    >.search-bar {
+      width: 100%;
+    }
   }
 }
 
