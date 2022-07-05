@@ -20,16 +20,7 @@ export default function CharacterList() {
   const { currentPage, nextPage, previusPage, isFirst, isLast } = usePagination(
     { totalPages, initPage: 1 }
   );
-  const {
-    isLoading,
-    data,
-    onFilter,
-    filterByType,
-    filterByGender,
-    characters,
-  } = useCharacters({ page: currentPage });
-
-  console.log({ characters, isLoading });
+  const { isLoading, data, onFilter, filterCharacters, characters } =useCharacters({ page: currentPage });
 
   useEffect(() => {
     if (data) {
@@ -59,23 +50,21 @@ export default function CharacterList() {
 
               <Select
                 icon={FiGrid}
-                className="me-2"
-                onChange={(e) => filterByType(e.target.value)}
+                className="me-2 "
+                onChange={filterCharacters}
+                name="species"
               >
-                <Select.Item>Especie</Select.Item>
+                <Select.Item value="">Especie</Select.Item>
                 <Select.Item value="human">Humano</Select.Item>
                 <Select.Item value="alien">Alien</Select.Item>
                 <Select.Item value="humanoid">Humanoide</Select.Item>
               </Select>
 
-              <Select
-                icon={FiUser}
-                onChange={(e) => filterByGender(e.target.value)}
-              >
-                <Select.Item>Género</Select.Item>
+              <Select icon={FiUser} onChange={filterCharacters} name="gender">
+                <Select.Item value="">Género</Select.Item>
                 <Select.Item value="female">Mujer</Select.Item>
                 <Select.Item value="male">Hombre</Select.Item>
-                <Select.Item value="unkow">Desconocido</Select.Item>
+                <Select.Item value="unknown">Desconocido</Select.Item>
               </Select>
             </div>
 
