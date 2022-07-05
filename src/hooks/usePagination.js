@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { scrollTop } from "../helpers/utils";
+import { Pagination } from "../helpers/storage";
 
 export default function usePagination({ initPage = 0, totalPages }) {
-  const [currentPage, setCurrentPage] = useState(initPage);
+  const pagination = Pagination("page", initPage);
+  const [currentPage, setCurrentPage] = useState(pagination.get());
   const isFirst = currentPage === initPage;
   const isLast = currentPage === totalPages;
 
@@ -17,6 +19,11 @@ export default function usePagination({ initPage = 0, totalPages }) {
     scrollTop();
     setCurrentPage(currentPage - 1);
   };
+
+  useEffect(() => {
+    pagination.set(currentPage);
+    console.log(currentPage)
+  }, [currentPage]);
 
   return { currentPage, nextPage, previusPage, isFirst, isLast };
 }

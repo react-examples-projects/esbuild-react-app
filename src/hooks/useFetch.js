@@ -1,3 +1,4 @@
+import cache from "../helpers/cache";
 import { useEffect, useState, useCallback } from "react";
 import { makeCancelable } from "../helpers/utils";
 
@@ -8,10 +9,14 @@ export default function useFetch(key, fn) {
 
   const fetchData = useCallback(async () => {
     try {
+      if (cache.get(key)) {
+        return setData(cache.get(key));
+      }
       setError(null);
       setLoading(true);
       const result = await fn(key);
       setData(result);
+      cache.put(key, result);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -30,7 +35,7 @@ export default function useFetch(key, fn) {
 
   return {
     refetch,
-    data,   
+    data,
     error,
     isLoading,
   };
