@@ -17,7 +17,7 @@ export default function useCharacters({ page }) {
       const name = normalizeText(e.target.value.toLowerCase().trim());
 
       if (e.target.value) {
-        const filter = results.filter((character) =>
+        const filter = characters.filter((character) =>
           character.name.toLowerCase().includes(name)
         );
         if (filter.length) {
@@ -29,7 +29,7 @@ export default function useCharacters({ page }) {
         setCharacters(results);
       }
     },
-    [results]
+    [results, characters]
   );
 
   const filterCharacters = (e) => {
