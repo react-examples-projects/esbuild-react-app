@@ -8,22 +8,26 @@ export default function usePagination({ initPage = 0, totalPages }) {
   const isFirst = currentPage === initPage;
   const isLast = currentPage === totalPages;
 
+  const setPage = (page) => {
+    if (page < initPage || page > totalPages) return;
+    setCurrentPage(page);
+    pagination.set(page);
+  };
+
   const nextPage = () => {
     if (currentPage === totalPages) return;
-    scrollTop();
-    setCurrentPage(currentPage + 1);
+    setPage(currentPage + 1);
   };
 
   const previusPage = () => {
     if (currentPage === initPage) return;
-    scrollTop();
-    setCurrentPage(currentPage - 1);
+    setPage(currentPage - 1);
   };
 
   useEffect(() => {
     pagination.set(currentPage);
-    console.log(currentPage)
-  }, [currentPage]);
+    scrollTop();
+  }, [currentPage, pagination]);
 
-  return { currentPage, nextPage, previusPage, isFirst, isLast };
+  return { currentPage, nextPage, previusPage, setPage, isFirst, isLast };
 }

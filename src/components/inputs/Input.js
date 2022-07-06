@@ -8,7 +8,7 @@ export default function Input({
 }) {
   return (
     <div className={cls("group", className)} {...containerProps}>
-      <Icon className="icon" aria-hidden="true" viewBox="0 0 24 24" />
+      {Icon && <Icon className="icon" aria-hidden="true" viewBox="0 0 24 24" />}
       <input placeholder="Search" type="search" className="input" {...props} />
     </div>
   );
