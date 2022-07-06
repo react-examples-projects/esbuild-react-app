@@ -19,7 +19,7 @@ export default function CharacterList() {
   const [totalPages, setTotalPages] = useState(0);
   const { currentPage, nextPage, previusPage, setPage, isFirst, isLast } =
     usePagination({ totalPages, initPage: 1 });
-  const { isLoading, data, onFilter, filterCharacters, characters } =
+  const { isLoading, data, filterByName, filterCharacters, characters } =
     useCharacters({ page: currentPage });
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function CharacterList() {
             icon={FiSearch}
             className="me-2 search-bar"
             placeholder="Nombre"
-            onChange={onFilter}
+            onChange={filterByName}
             disabled={isLoading}
           />
 

@@ -12,40 +12,7 @@ export default function useCharacters({ page }) {
     gender: "",
   });
 
-  const onFilter = useCallback(
-    (e) => {
-      const name = normalizeText(e.target.value.toLowerCase().trim());
-
-      if (e.target.value) {
-        const filter = characters.filter((character) =>
-          character.name.toLowerCase().includes(name)
-        );
-        if (filter.length) {
-          setCharacters(filter);
-        } else {
-          setCharacters(results);
-        }
-      } else {
-        setCharacters(results);
-      }
-    },
-    [results, characters]
-  );
-
-  const filterCharacters = (e) => {
-    setCurrentFilter({
-      ...currentFilter,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  useEffect(() => {
-    if (results) {
-      setCharacters(results);
-    }
-  }, [results]);
-
-  useEffect(() => {
+  const multipleFilterCharacters = useCallback(() => {
     if (results) {
       const keys = Object.keys(currentFilter);
       const filtered = results.filter((character) => {
@@ -64,10 +31,45 @@ export default function useCharacters({ page }) {
     }
   }, [currentFilter, results]);
 
+  const filterByName = useCallback(
+    (e) => {
+      const name = normalizeText(e.target.value.toLowerCase().trim());
+
+      if (e.target.value) {
+        const filter = characters.filter((character) =>
+          character.name.toLowerCase().includes(name)
+        );
+        if (filter.length) {
+          setCharacters(filter);
+        } else {
+          multipleFilterCharacters();
+        }
+      } else {
+        multipleFilterCharacters();
+      }
+    },
+    [characters, multipleFilterCharacters]
+  );
+
+  const filterCharacters = (e) => {
+    setCurrentFilter({
+      ...currentFilter,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  useEffect(() => {
+    if (results) setCharacters(results);
+  }, [results]);
+
+  useEffect(() => {
+    multipleFilterCharacters();
+  }, [multipleFilterCharacters]);
+
   return {
     ...data,
     characters,
-    onFilter,
+    filterByName,
     filterCharacters,
   };
 }
