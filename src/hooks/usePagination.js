@@ -9,6 +9,7 @@ export default function usePagination({ initPage = 0, totalPages }) {
   const isLast = currentPage === totalPages;
 
   const setPage = (page) => {
+    page = Number(page);
     if (page < initPage || page > totalPages) return;
     setCurrentPage(page);
     pagination.set(page);

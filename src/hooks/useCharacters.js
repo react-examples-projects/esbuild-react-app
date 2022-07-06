@@ -41,6 +41,13 @@ export default function useCharacters({ page }) {
 
   useEffect(() => {
     if (results) {
+      setCharacters(results);
+    }
+  }, [results]);
+  
+  useEffect(() => {
+    if (results) {
+      console.log("se ejecuto useefect");
       const keys = Object.keys(currentFilter);
       const filtered = results.filter((character) => {
         const flags = [];
@@ -57,12 +64,6 @@ export default function useCharacters({ page }) {
       setCharacters(filtered);
     }
   }, [currentFilter, results]);
-
-  useEffect(() => {
-    if (results) {
-      setCharacters(results);
-    }
-  }, [results]);
 
   return {
     ...data,
