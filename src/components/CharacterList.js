@@ -69,7 +69,7 @@ export default function CharacterList() {
             <Select.Item value="male">Hombre</Select.Item>
             <Select.Item value="unknown">Desconocido</Select.Item>
           </Select>
-        </div>
+        </div> 
         {isLoading && !characters ? (
           <CharactersLoader />
         ) : characters?.length ? (

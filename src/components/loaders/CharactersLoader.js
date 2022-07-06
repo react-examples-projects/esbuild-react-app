@@ -5,9 +5,9 @@ function SkeletonCharacter() {
   return (
     <div>
       <Skeleton containerClassName="w-100" height={228} />
-      <Skeleton containerClassName="w-100" width={100} className="mt-3 mb-1" />
-      <Skeleton containerClassName="w-100" width={64} />
-      <Skeleton containerClassName="w-100" width={55} />
+      <Skeleton containerClassName="w-100" width={170} className="mt-3 mb-1" />
+      <Skeleton containerClassName="w-100" width={95} className="mb-1" />
+      <Skeleton containerClassName="w-100" width={75} />
     </div>
   );
 }
