@@ -5,18 +5,18 @@ import { makeCancelable } from "../helpers/utils";
 export default function useFetch(key, fn) {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
     try {
       if (cache.get(key)) {
-        return setData(cache.get(key));
+        setData(cache.get(key));
+        return setLoading(false);
       }
       setError(null);
-      setLoading(true);
       const result = await fn(key);
-      setData(result);
       cache.put(key, result);
+      setData(result);
     } catch (err) {
       setError(err.message);
     } finally {

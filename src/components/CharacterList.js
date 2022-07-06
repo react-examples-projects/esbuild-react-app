@@ -9,11 +9,12 @@ import {
 } from "react-icons/fi";
 import Character from "./Character";
 import Loader from "./Loader";
-import CharactersLoader from "./loaders/CharactersLoader";
+import CharactersLoader from "./loaders/CharacterLoader";
 import useCharacters from "../hooks/useCharacters";
 import usePagination from "../hooks/usePagination";
 import Input from "./inputs/Input";
 import Select from "./inputs/Select";
+import NotFoundCharacter from "./NotFoundCharacter";
 
 export default function CharacterList() {
   const [totalPages, setTotalPages] = useState(0);
@@ -22,10 +23,9 @@ export default function CharacterList() {
   const { isLoading, data, filterByName, filterCharacters, characters } =
     useCharacters({ page: currentPage });
 
+  console.log({ characters, isLoading });
   useEffect(() => {
-    if (data) {
-      setTotalPages(data?.info.pages);
-    }
+    if (data) setTotalPages(data?.info.pages);
   }, [data]);
 
   return (
@@ -70,10 +70,10 @@ export default function CharacterList() {
             <Select.Item value="unknown">Desconocido</Select.Item>
           </Select>
         </div>
-        
-        {isLoading && !characters ? (
+
+        {isLoading || !characters ? (
           <CharactersLoader />
-        ) : characters?.length ? (
+        ) : characters?.length > 0 ? (
           <>
             <p className="mb-1 text-muted" style={{ paddingLeft: "0.5rem" }}>
               Página {currentPage} de {totalPages}
@@ -91,8 +91,9 @@ export default function CharacterList() {
             </div>
           </>
         ) : (
-          <p>No hay personajes para mostrar</p>
+          <NotFoundCharacter />
         )}
+
         <div className="d-flex flex-column flex-md-row justify-content-center mx-auto">
           <button
             onClick={previusPage}

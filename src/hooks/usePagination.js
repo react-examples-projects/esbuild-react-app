@@ -13,6 +13,7 @@ export default function usePagination({ initPage = 0, totalPages }) {
     if (page < initPage || page > totalPages) return;
     setCurrentPage(page);
     pagination.set(page);
+    scrollTop();
   };
 
   const nextPage = () => {
@@ -27,7 +28,6 @@ export default function usePagination({ initPage = 0, totalPages }) {
 
   useEffect(() => {
     pagination.set(currentPage);
-    scrollTop();
   }, [currentPage, pagination]);
 
   return { currentPage, nextPage, previusPage, setPage, isFirst, isLast };
