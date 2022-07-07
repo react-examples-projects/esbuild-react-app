@@ -10,12 +10,13 @@ export default function lazyLoad(image) {
         entrie[0].isIntersecting &&
         element.src !== element.getAttribute("data-src")
       ) {
-        console.log("isIntercepting")
+        console.log("isIntercepting");
         element.src = element.getAttribute("data-src");
 
         element.addEventListener("load", (e) => {
           element.classList.add("loaded");
           observer.unobserve(e.target);
+          element.removeAttribute("data-src");
         });
       }
     }

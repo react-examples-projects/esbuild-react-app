@@ -59,7 +59,6 @@ export default function useCharacters({ page }) {
   };
 
   useEffect(() => {
-    console.log({results})
     if (results) setCharacters(results);
   }, [results]);
 

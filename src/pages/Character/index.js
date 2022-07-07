@@ -1,4 +1,7 @@
 import { useParams } from "react-router-dom";
+import CharacterError from "../../components/Errors/CharacterError";
+import CharacterLoader from "../../components/loaders/CharacterLoader";
+
 import useCharacter from "../../hooks/useCharacter";
 import styles from "./styles.modules.css";
 
@@ -6,12 +9,10 @@ export default function Character() {
   const { id } = useParams();
   const { data, isLoading, error } = useCharacter(id);
 
-  if (error) {
-    return <h2>An error ocurred while fetching data</h2>;
-  }
-  if (isLoading) {
-    return <h2>Loading data...</h2>;
-  }
+  if (error) return <CharacterError />;
+
+  if (isLoading) return <CharacterLoader />;
+
   return (
     <div className={styles.container}>
       <img

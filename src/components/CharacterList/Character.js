@@ -1,5 +1,5 @@
-import useLazyloadImage from "../hooks/useLazyLoadImage";
-import SkeletonLoader from "../assets/skeleton.gif";
+import useLazyloadImage from "../../hooks/useLazyLoadImage";
+import SkeletonLoader from "../../assets/skeleton.gif";
 import {
   BsGenderFemale,
   BsGenderMale,
