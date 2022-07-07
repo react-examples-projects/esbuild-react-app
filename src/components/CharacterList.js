@@ -9,7 +9,7 @@ import {
 } from "react-icons/fi";
 import Character from "./Character";
 import Loader from "./Loader";
-import CharactersLoader from "./loaders/CharacterLoader";
+import CharactersListLoader from "./loaders/CharactersListLoader";
 import useCharacters from "../hooks/useCharacters";
 import usePagination from "../hooks/usePagination";
 import Input from "./inputs/Input";
@@ -72,7 +72,7 @@ export default function CharacterList() {
         </div>
 
         {isLoading || !characters ? (
-          <CharactersLoader />
+          <CharactersListLoader />
         ) : characters?.length > 0 ? (
           <>
             <p className="mb-1 text-muted" style={{ paddingLeft: "0.5rem" }}>

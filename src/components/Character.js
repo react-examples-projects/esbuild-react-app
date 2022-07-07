@@ -8,15 +8,16 @@ import {
 } from "react-icons/bs";
 
 export default function Character({ name, species, gender, image }) {
-  const isLoaded = useLazyloadImage({ src: image });
+  const { ref } = useLazyloadImage(image);
+
   return (
     <div className="character">
       <img
-        src={isLoaded ? image : SkeletonLoader}
-        loading="lazy "
+        src={SkeletonLoader}
         alt={name}
         title={name}
         className="character-img"
+        ref={ref}
       />
       <div className="character-info">
         <h3 className="character-name mb-1">{name}</h3>

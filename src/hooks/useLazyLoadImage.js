@@ -1,22 +1,19 @@
-import { useEffect, useState } from "react";
-
+import { useEffect, useRef } from "react";
+import SkeletonLoader from "../assets/skeleton.gif";
+import lazyLoad from "../helpers/lazyload";
 /**
  * Show an image loader placeholder and replace when it's been loaded
  * @param {String} src The original source url
  * @param {String} placeholder a loader for the image
  * @returns {String} The image url
  */
-export default function useLazyloadImage({ src }) {
-  const [isLoaded, setLoaded] = useState(false);
-
+export default function useLazyloadImage(src) {
+  const imgNodeRef = useRef(null);
   useEffect(() => {
-    const onLoad = () => setLoaded(src);
-    const img = new Image();
-    img.src = src;
-    img.addEventListener("load", onLoad);
-
-    return () => img.removeEventListener("load", onLoad);
+    imgNodeRef.current.src = SkeletonLoader;
+    imgNodeRef.current.setAttribute("data-src", src);
+    lazyLoad(imgNodeRef.current);
   }, [src]);
 
-  return isLoaded;
+  return { ref: imgNodeRef };
 }
