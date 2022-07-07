@@ -8,6 +8,7 @@ export default function useFetch(key, fn) {
   const [isLoading, setLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
+    setLoading(true);
     try {
       if (cache.get(key)) {
         setData(cache.get(key));

@@ -15,13 +15,11 @@ export default function List() {
   useEffect(() => {
     if (data) setTotalPages(data?.info.pages);
   }, [data]);
-
+  console.log({ isLoading });
   return (
     <>
-      {isLoading && characters && (
-        <Loader
-          style={{ position: "absolute", top: "1.2rem", right: "1.2rem" }}
-        />
+      {isLoading && (
+        <Loader style={{ position: "fixed", top: "1rem", left: "1rem" }} />
       )}
 
       <div className="character-list mb-3">

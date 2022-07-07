@@ -14,6 +14,11 @@ body {
     background-color: #111827;
     color: #e2e8f0;
 
+    .loader{
+      border: 3px solid #fff;
+      border-top-color: transparent;
+    }
+
     .character:hover {
       background-color: rgba(52, 64, 88, 0.349)
     }
@@ -120,8 +125,8 @@ body {
   --color-green: #54bab9;  
 
   position: absolute;
-  right: 1rem;
-  top: 1rem;
+  right: 0.5rem;
+  top: 0.5rem;
 
   input[type="checkbox"] {
     display: none;
@@ -180,10 +185,10 @@ body {
 
 
 .loader {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  border: 2px solid #0a0a0a99;
+  border: 3px solid #0a0a0a99;
   border-top-color: transparent;
   animation: rot1 1.2s linear infinite;
 }
@@ -199,7 +204,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.589), rgba(33, 33, 33, 0.349)), url("../assets/banner.jpg");
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.767), rgba(33, 33, 33, 0.637)), url("../assets/banner.jpg");
   background-size: cover;
   margin-top: 3rem;
   margin-bottom: 1rem;
