@@ -12,11 +12,10 @@ body {
 
   &.dark {
     background-color: #111827;
-    color: #e2e8f0;
+    color: #ebeff3;
 
-    .loader{
-      border: 3px solid #fff;
-      border-top-color: transparent;
+    .text-muted{
+      color: #ebeff3bb !important;
     }
 
     .character:hover {
@@ -188,7 +187,7 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 3px solid #0a0a0a99;
+  border: 3px solid #54bab9;
   border-top-color: transparent;
   animation: rot1 1.2s linear infinite;
 }
